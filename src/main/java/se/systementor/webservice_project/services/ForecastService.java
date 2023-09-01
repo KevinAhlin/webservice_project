@@ -78,6 +78,6 @@ public class ForecastService {
     }
 
     public Optional<Forecast> get(UUID id) {
-        return null;
+        return getForecasts().stream().filter(c->c.getId().equals(id)).findFirst();
     }
 }
