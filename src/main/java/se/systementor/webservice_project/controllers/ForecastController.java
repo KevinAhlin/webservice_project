@@ -3,13 +3,13 @@ package se.systementor.webservice_project.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import se.systementor.webservice_project.models.Forecast;
 import se.systementor.webservice_project.services.ForecastService;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,27 +36,18 @@ public class ForecastController {
     // Returns one specific forecast
     @GetMapping("/api/forecasts/{id}")
     public ResponseEntity<Forecast> getForecast(@PathVariable UUID id) {
-        Optional<Forecast> singleForecast = forecastService.get(id);
-        if (singleForecast.isPresent())
-            return ResponseEntity.ok(singleForecast.get());
+        Optional<Forecast> forecast = forecastService.get(id);
+        if (forecast.isPresent())
+            return ResponseEntity.ok(forecast.get());
         return  ResponseEntity.notFound().build();
     }
 
-
-    /*
-    // Update a prediction
+    // Update one prediction
     @PutMapping("/api/forecasts/{id}")
-    public ResponseEntity<Forecast> Update(@PathVariable UUID id, @RequestBody Forecast forecast) throws IOException {
+    public ResponseEntity<Forecast> updateForecast(@PathVariable UUID id, @RequestBody Forecast forecast) throws IOException, IOException {
         forecastService.update(forecast);
         return ResponseEntity.ok(forecast);
     }
-
-     */
-
-
-
-
-
 
 
 
