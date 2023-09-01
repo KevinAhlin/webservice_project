@@ -33,17 +33,15 @@ public class ForecastController {
         return new ResponseEntity<>(forecastService.getForecasts(), HttpStatus.OK);
     }
 
-    /*
     // Returns one specific forecast
     @GetMapping("/api/forecasts/{id}")
-    public ResponseEntity<Forecast> Get(@PathVariable UUID id){
-        Optional<Forecast> product = forecastService.get(id);
-        if (product.isPresent())
-            return ResponseEntity.ok(forecast.get());
+    public ResponseEntity<Forecast> getForecast(@PathVariable UUID id) {
+        Optional<Forecast> singleForecast = forecastService.get(id);
+        if (singleForecast.isPresent())
+            return ResponseEntity.ok(singleForecast.get());
         return  ResponseEntity.notFound().build();
     }
 
-     */
 
     /*
     // Update a prediction
