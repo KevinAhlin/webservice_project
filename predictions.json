@@ -8,4 +8,9 @@
   "date" : 21210202,
   "hour" : 23,
   "temperature" : 14.0
+}, {
+  "id" : "c0018ec7-1dae-40e3-8003-ea8252d55982",
+  "date" : 19971104,
+  "hour" : 6,
+  "temperature" : 4.5
 } ]
