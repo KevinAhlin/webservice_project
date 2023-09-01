@@ -1,0 +1,11 @@
+[ {
+  "id" : "e7bbc807-4efa-47b6-8849-5e42d7fab6f5",
+  "date" : 20230831,
+  "hour" : 14,
+  "temperature" : 18.0
+}, {
+  "id" : "efbdd04a-a728-42f4-ac9c-27c54ec85134",
+  "date" : 21210202,
+  "hour" : 23,
+  "temperature" : 14.0
+} ]
