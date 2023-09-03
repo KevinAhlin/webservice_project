@@ -68,7 +68,13 @@ public class ForecastService {
         writeAllToFile(forecasts);
     }
 
-    public void update(Forecast forecast) throws IOException {
+    public void update(Forecast forecastFromUser) throws IOException {
+        // Updates the forecasts list
+        var forecastInList = get(forecastFromUser.getId()).get();
+        forecastInList.setDate(forecastFromUser.getDate());
+        forecastInList.setHour(forecastFromUser.getHour());
+        forecastInList.setTemperature(forecastFromUser.getTemperature());
+
         writeAllToFile(forecasts);
     }
 
@@ -77,6 +83,6 @@ public class ForecastService {
     }
 
     public Optional<Forecast> get(UUID id) {
-        return getForecasts().stream().filter(c->c.getId().equals(id)).findFirst();
+        return getForecasts().stream().filter(forecast -> forecast.getId().equals(id)).findFirst();
     }
 }

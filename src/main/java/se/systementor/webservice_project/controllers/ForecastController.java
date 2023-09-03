@@ -44,7 +44,7 @@ public class ForecastController {
 
     // Update one prediction
     @PutMapping("/api/forecasts/{id}")
-    public ResponseEntity<Forecast> updateForecast(@PathVariable UUID id, @RequestBody Forecast forecast) throws IOException, IOException {
+    public ResponseEntity<Forecast> updateForecast(@PathVariable UUID id, @RequestBody Forecast forecast) throws IOException {
         forecastService.update(forecast);
         return ResponseEntity.ok(forecast);
     }
