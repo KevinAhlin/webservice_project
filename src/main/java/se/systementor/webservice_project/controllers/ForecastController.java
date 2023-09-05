@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import se.systementor.webservice_project.models.Forecast;
 import se.systementor.webservice_project.services.ForecastService;
 
+import javax.swing.text.html.parser.Entity;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -49,17 +50,22 @@ public class ForecastController {
         return ResponseEntity.ok(forecast);
     }
 
+    @PostMapping("/api/forecasts")
+    public ResponseEntity<Forecast> New( @RequestBody Forecast forecast) throws IOException {   // id
+        var newCreated = forecastService.add(forecast);
+        return ResponseEntity.ok(newCreated);   // mer REST ful = created (204) samt url till forecast
+    }
 
+    /*
+    @DeleteMapping("/api/forecasts/{id}")
+    // This 'hard' delete isn't used very often
+    public ResponseEntity<Forecast> getForecast(@PathVariable UUID id) {
+        Optional<Forecast> forecast = forecastService.get(id);
+        if (forecast.isPresent())
+            return ResponseEntity.ok(forecast.get());
+        return  ResponseEntity.notFound().build();
+    }
+     */
 
-
-
-    //    @PutMapping("/api/products/{id}")
-    //    public ResponseEntity<Product> Update(@PathVariable UUID id, @RequestBody Product product){
-    //        boolean status = productService.update(product);
-    //        if(status == true)
-    //            return ResponseEntity.ok(product);
-    //        else
-    //            return ResponseEntity.badRequest().build();
-    //    }
 
 }

@@ -60,12 +60,14 @@ public class ForecastService {
         return forecasts;
     }
 
-    public void add(Forecast forecast) throws IOException {
+    public Forecast add(Forecast forecast) throws IOException {
         // First we add the prediction to our forecasts array
+        forecast.setId(UUID.randomUUID());
         forecasts.add(forecast);
 
         // Then we save the array in a file (JSON)
         writeAllToFile(forecasts);
+        return forecast;
     }
 
     public void update(Forecast forecastFromUser) throws IOException {
