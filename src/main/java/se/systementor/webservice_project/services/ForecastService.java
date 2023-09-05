@@ -76,6 +76,7 @@ public class ForecastService {
         forecastInList.setDate(forecastFromUser.getDate());
         forecastInList.setHour(forecastFromUser.getHour());
         forecastInList.setTemperature(forecastFromUser.getTemperature());
+        forecastInList.setLastModifiedBy(forecastFromUser.getLastModifiedBy());
 
         writeAllToFile(forecasts);
     }

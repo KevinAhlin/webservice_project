@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.systementor.webservice_project.dto.NewForecastDTO;
 import se.systementor.webservice_project.models.Forecast;
 import se.systementor.webservice_project.services.ForecastService;
 
@@ -45,7 +46,15 @@ public class ForecastController {
 
     // Update one prediction
     @PutMapping("/api/forecasts/{id}")
-    public ResponseEntity<Forecast> updateForecast(@PathVariable UUID id, @RequestBody Forecast forecast) throws IOException {
+    public ResponseEntity<Forecast> updateForecast(@PathVariable UUID id, @RequestBody NewForecastDTO newForecastDTO) throws IOException {
+        // Mapping from dto -> entity
+        var forecast = new Forecast();
+        forecast.setId(id);
+        forecast.setDate(newForecastDTO.getDate());
+        forecast.setHour(newForecastDTO.getHour());
+        forecast.setTemperature(newForecastDTO.getTemperature());
+        forecast.setLastModifiedBy("Kevin Åhlin");
+
         forecastService.update(forecast);
         return ResponseEntity.ok(forecast);
     }

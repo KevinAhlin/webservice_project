@@ -8,6 +8,7 @@ public class Forecast {
     private int date;
     private int hour;
     private float temperature;
+    private String lastModifiedBy;
 
 
     public UUID getId() {
@@ -40,6 +41,14 @@ public class Forecast {
 
     public void setTemperature(float temperature) {
         this.temperature = temperature;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
 }
