@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.systementor.webservice_project.dto.ForecastListDTO;
 import se.systementor.webservice_project.dto.NewForecastDTO;
 import se.systementor.webservice_project.models.Forecast;
 import se.systementor.webservice_project.services.ForecastService;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 //1.  Client anropar /api/forecasts - GET
 //2.  Spring kollar vilken funktion som hanterar denna /api/forecasts
@@ -30,9 +32,16 @@ public class ForecastController {
 
     // Returns all forecasts
     @GetMapping("/api/forecasts")       // http get
-    public ResponseEntity<List<Forecast>> getAll() {
-        // ResponseEntity checks both the data and its status
-        return new ResponseEntity<>(forecastService.getForecasts(), HttpStatus.OK);
+    public ResponseEntity<List<ForecastListDTO>> getAll() {
+
+        return new ResponseEntity<List<ForecastListDTO>>(forecastService.getForecasts().stream().map(c->{
+            var forecastListDTO = new ForecastListDTO();
+            forecastListDTO.Id = c.getId();
+            forecastListDTO.Date = c.getDate();
+            forecastListDTO.Hour = c.getHour();
+            forecastListDTO.Temperature = c.getTemperature();
+            return forecastListDTO;
+        }).collect(Collectors.toList()), HttpStatus.OK);    // ResponseEntity checks both the data and its status
     }
 
     // Returns one specific forecast
