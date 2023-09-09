@@ -30,20 +30,8 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		var objectMapper = new ObjectMapper();
-
 		/*
-		// Serialization with an array - RESTapi
-		BlogPost []blogPosts = objectMapper.readValue(
-				new URL("https://jsonplaceholder.typicode.com/posts"), BlogPost[].class
-		);
-
-		// Serialization of a single object - RESTapi
-		BlogPost blogPost = objectMapper.readValue(
-				new URL("https://jsonplaceholder.typicode.com/posts/1"), BlogPost.class
-		);
-		 */
-
+		var objectMapper = new ObjectMapper();
 		var forecast = new Forecast();
 		forecast.setId(UUID.randomUUID());
 		forecast.setPredictionDate(LocalDate.now());
@@ -57,7 +45,9 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 
 		// Deserialization - take JSON and turn in into POJO
 		Forecast forecast2 = objectMapper.readValue(json, Forecast.class);
+		*/
 
+		forecastService.getAllOnDate(LocalDate.now());
 
 		var scanner = new Scanner(System.in);
 
@@ -123,11 +113,8 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 		// Create a new forecast prediction
 		var forecast = new Forecast();
 		forecast.setId(UUID.randomUUID());
-		//forecast.setDate(day);
 		forecast.setPredictionDate(LocalDate.now());
-		//forecast.setHour(hour);
 		forecast.setPredictionHour(hour);
-		//forecast.setTemperature(temp);
 		forecast.setPredictionTemperature(temp);
 
 		forecastService.add(forecast);

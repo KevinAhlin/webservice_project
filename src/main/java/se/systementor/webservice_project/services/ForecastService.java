@@ -1,31 +1,28 @@
 package se.systementor.webservice_project.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.systementor.webservice_project.models.Forecast;
+import se.systementor.webservice_project.repositories.ForecastRepository;
 
 import java.io.IOException;
-import java.io.StringWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
 public class ForecastService {
 
-    private static List<Forecast> forecasts = new ArrayList<Forecast>();    // static means it's not bound to one instance
+    @Autowired
+    private ForecastRepository forecastRepository;
+    //private static List<Forecast> forecasts = new ArrayList<Forecast>();    // static means it's not bound to one instance
 
 
     // Constructor
     public ForecastService() {
-        try {
-            forecasts = readFromFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
+    /*
     private List<Forecast> readFromFile() throws IOException {
         // If it's empty, return an empty array
         if (!Files.exists(Path.of("predictions.json")))
@@ -55,18 +52,25 @@ public class ForecastService {
 
         return mapper;
     }
+    */
 
     public List<Forecast> getForecasts() {
-        return forecasts;
+        return forecastRepository.findAll();
+        //return forecasts;
     }
 
     public Forecast add(Forecast forecast) throws IOException {
+
+        /*
+        // Rows below shows how to add for JSON
         // First we add the prediction to our forecasts array
         forecast.setId(UUID.randomUUID());
         forecasts.add(forecast);
-
         // Then we save the array in a file (JSON)
         writeAllToFile(forecasts);
+         */
+
+        forecastRepository.save(forecast);
         return forecast;
     }
 
@@ -84,10 +88,15 @@ public class ForecastService {
     }
 
     public Forecast getByIndex(int i) {
-        return forecasts.get(i);
+        return null;
     }
 
     public Optional<Forecast> get(UUID id) {
-        return getForecasts().stream().filter(forecast -> forecast.getId().equals(id)).findFirst();
+        return forecastRepository.findById(id);
+        //return getForecasts().stream().filter(forecast -> forecast.getId().equals(id)).findFirst();
+    }
+
+    public void getAllOnDate(LocalDate now) {
+        //return forecastRepository.
     }
 }

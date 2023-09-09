@@ -1,14 +1,22 @@
 package se.systementor.webservice_project.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
 public class Forecast {
+    // @Entity and @Id is needed to take java and use it in a DB
 
+    private String color;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    //private int date;
-    //private int hour;
     private LocalDateTime created;
     private LocalDateTime updated;
     private float longitude;
