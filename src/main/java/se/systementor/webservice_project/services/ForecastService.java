@@ -72,6 +72,7 @@ public class ForecastService {
 
     public void update(Forecast forecastFromUser) throws IOException {
         // Updates the forecasts list
+        /*
         var forecastInList = get(forecastFromUser.getId()).get();
         forecastInList.setDate(forecastFromUser.getDate());
         forecastInList.setHour(forecastFromUser.getHour());
@@ -79,6 +80,7 @@ public class ForecastService {
         forecastInList.setLastModifiedBy(forecastFromUser.getLastModifiedBy());
 
         writeAllToFile(forecasts);
+         */
     }
 
     public Forecast getByIndex(int i) {

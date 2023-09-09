@@ -17,7 +17,7 @@ public class Forecast {
     private int predictionHour;
     private int predictionTemperature;
     private boolean rainOrSnow;
-    //private ApiProvider apiProvider;
+    private DataSource dataSource;
     //private float temperature;
     //private String lastModifiedBy;
 
@@ -92,6 +92,14 @@ public class Forecast {
 
     public void setRainOrSnow(boolean rainOrSnow) {
         this.rainOrSnow = rainOrSnow;
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     /*

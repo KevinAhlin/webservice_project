@@ -6,12 +6,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import se.systementor.webservice_project.models.BlogPost;
+import se.systementor.webservice_project.models.DataSource;
 import se.systementor.webservice_project.models.Forecast;
 import se.systementor.webservice_project.services.ForecastService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.UUID;
@@ -30,6 +32,7 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		var objectMapper = new ObjectMapper();
 
+		/*
 		// Serialization with an array - RESTapi
 		BlogPost []blogPosts = objectMapper.readValue(
 				new URL("https://jsonplaceholder.typicode.com/posts"), BlogPost[].class
@@ -39,13 +42,14 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 		BlogPost blogPost = objectMapper.readValue(
 				new URL("https://jsonplaceholder.typicode.com/posts/1"), BlogPost.class
 		);
-
+		 */
 
 		var forecast = new Forecast();
 		forecast.setId(UUID.randomUUID());
-		forecast.setDate(20230101);
-		forecast.setHour(12);
-		forecast.setTemperature(12f);
+		forecast.setPredictionDate(LocalDate.now());
+		forecast.setPredictionHour(12);
+		forecast.setPredictionTemperature(12);
+		forecast.setDataSource(DataSource.Console);
 
 		// Serialization - take POJO and make in into JSON
 		String json = objectMapper.writeValueAsString(forecast);
@@ -83,15 +87,18 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 		System.out.println("*** LIST OF PREDICTIONS ***");
 
 		int num = 1;
+		/*
 		for (var forecast : forecastService.getForecasts()) {
-			System.out.printf("%d: %d, Time %d:00, Temp:%f %n",
+			System.out.printf("%t: %d, Time %d:00, Temp:%d %n",
 					num,
-					forecast.getDate(),
-					forecast.getHour(),
-					forecast.getTemperature()
+					forecast.getPredictionDate(),
+					forecast.getPredictionHour(),
+					forecast.getPredictionTemperature()
 			);
 			num++;
 		}
+
+		 */
 		//forecastService.ForecastService();
 	}
 
@@ -111,14 +118,17 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 
 		// Input the temp
 		System.out.println("Insert temperature: ");
-		float temp = scanner.nextFloat();
+		int temp = scanner.nextInt();
 
 		// Create a new forecast prediction
 		var forecast = new Forecast();
 		forecast.setId(UUID.randomUUID());
-		forecast.setDate(day);
-		forecast.setHour(hour);
-		forecast.setTemperature(temp);
+		//forecast.setDate(day);
+		forecast.setPredictionDate(LocalDate.now());
+		//forecast.setHour(hour);
+		forecast.setPredictionHour(hour);
+		//forecast.setTemperature(temp);
+		forecast.setPredictionTemperature(temp);
 
 		forecastService.add(forecast);
 	}
@@ -132,14 +142,16 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 		int row = scanner.nextInt();
 
 		var forecast = forecastService.getByIndex(row-1);
+		/*
 		System.out.printf("DATE: %d, TIME: %d, CURRENT TEMP: %f %n",
-				forecast.getDate(),
-				forecast.getHour(),
-				forecast.getTemperature()
+				forecast.getPredictionDate(),
+				forecast.getPredictionHour(),
+				forecast.getPredictionTemperature()
 		);
+		 */
 		System.out.println("Insert the new temperature");
-		float temp = scanner.nextFloat();
-		forecast.setTemperature(temp);
+		int temp = scanner.nextInt();
+		forecast.setPredictionTemperature(temp);
 
 		forecastService.update(forecast);
 	}
