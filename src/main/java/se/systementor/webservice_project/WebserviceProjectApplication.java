@@ -1,19 +1,17 @@
 package se.systementor.webservice_project;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import se.systementor.webservice_project.models.BlogPost;
-import se.systementor.webservice_project.models.DataSource;
 import se.systementor.webservice_project.models.Forecast;
 import se.systementor.webservice_project.services.ForecastService;
 
 import java.io.IOException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.UUID;
@@ -30,21 +28,20 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String timeStamp = "2020-01-01";
+		TemporalAccessor temporalAccessor = formatter.parse(timeStamp);
+		LocalDateTime localDateTime = LocalDateTime.from(temporalAccessor);
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
+		Instant result = Instant.from(zonedDateTime);
+
 		/*
-		var objectMapper = new ObjectMapper();
-		var forecast = new Forecast();
-		forecast.setId(UUID.randomUUID());
-		forecast.setPredictionDate(LocalDate.now());
-		forecast.setPredictionHour(12);
-		forecast.setPredictionTemperature(12);
-		forecast.setDataSource(DataSource.Console);
-
-		// Serialization - take POJO and make in into JSON
-		String json = objectMapper.writeValueAsString(forecast);
-		System.out.println(json);	// {"id":"428e4e9f-3cc5-4897-88b2-3c6ac2f8d481","date":20230101,"hour":12,"temperature":12.0}
-
-		// Deserialization - take JSON and turn in into POJO
-		Forecast forecast2 = objectMapper.readValue(json, Forecast.class);
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String date = "2023-05-08";
+		// Convert string 'date' to LocalDate
+		LocalDate localDate = LocalDate.parse(date, dateFormatter);
+		Instant resultInstant = Instant.from(localDate);
 		*/
 
 		forecastService.getAllOnDate(LocalDate.now());

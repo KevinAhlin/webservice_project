@@ -1,11 +1,16 @@
 package se.systementor.webservice_project.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.systementor.webservice_project.models.Forecast;
 import se.systementor.webservice_project.repositories.ForecastRepository;
 
 import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -22,16 +27,15 @@ public class ForecastService {
 
     }
 
-    /*
+
     private List<Forecast> readFromFile() throws IOException {
         // If it's empty, return an empty array
-        if (!Files.exists(Path.of("predictions.json")))
+        if (!Files.exists(Path.of("predictions.xml")))
             return new ArrayList<>();
         ObjectMapper objectMapper = getObjectMapper();
-        var jsonStr = Files.readString(Path.of("predictions.json"));
+        var jsonStr = Files.readString(Path.of("predictions.xml"));
 
-        return  new ArrayList(Arrays.asList(
-                objectMapper.readValue( jsonStr, Forecast[].class )));
+        return new ArrayList(Arrays.asList(objectMapper.readValue( jsonStr, Forecast[].class )));
     }
 
     private void writeAllToFile(List<Forecast> weatherPredictions) throws IOException {
@@ -43,16 +47,17 @@ public class ForecastService {
         StringWriter stringWriter = new StringWriter();
         objectMapper.writeValue(stringWriter, weatherPredictions);
 
-        Files.writeString(Path.of("predictions.json"), stringWriter.toString());
+        Files.writeString(Path.of("predictions.xml"), stringWriter.toString());
     }
 
     private static ObjectMapper getObjectMapper() {
+        //ObjectMapper mapper = new ObjectMapper();     // for JSON
         ObjectMapper mapper = new ObjectMapper();
         //mapper.registerModule(new JavaTimeModule());
 
         return mapper;
     }
-    */
+
 
     public List<Forecast> getForecasts() {
         return forecastRepository.findAll();
