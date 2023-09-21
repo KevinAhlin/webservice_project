@@ -16,28 +16,34 @@ import java.util.*;
 
 @Service
 public class ForecastService {
+    private static List<Forecast> forecasts = new ArrayList<Forecast>();    // static means it's not bound to one instance
 
     @Autowired
     private ForecastRepository forecastRepository;
-    //private static List<Forecast> forecasts = new ArrayList<Forecast>();    // static means it's not bound to one instance
 
-
+    /*
     // Constructor
     public ForecastService() {
-
+        try {
+            forecasts = readFromFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+     */
 
 
     private List<Forecast> readFromFile() throws IOException {
         // If it's empty, return an empty array
-        if (!Files.exists(Path.of("predictions.xml")))
+        if (!Files.exists(Path.of("predictions.json")))
             return new ArrayList<>();
         ObjectMapper objectMapper = getObjectMapper();
-        var jsonStr = Files.readString(Path.of("predictions.xml"));
+        var jsonStr = Files.readString(Path.of("predictions.json"));
 
         return new ArrayList(Arrays.asList(objectMapper.readValue( jsonStr, Forecast[].class )));
     }
 
+    /*
     private void writeAllToFile(List<Forecast> weatherPredictions) throws IOException {
         // Write the list of predictions when adding or updating a prediction
         ObjectMapper objectMapper = getObjectMapper();
@@ -49,10 +55,10 @@ public class ForecastService {
 
         Files.writeString(Path.of("predictions.xml"), stringWriter.toString());
     }
+    */
 
     private static ObjectMapper getObjectMapper() {
-        //ObjectMapper mapper = new ObjectMapper();     // for JSON
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();     // for JSON
         //mapper.registerModule(new JavaTimeModule());
 
         return mapper;
@@ -90,6 +96,7 @@ public class ForecastService {
 
         writeAllToFile(forecasts);
          */
+        forecastRepository.save(forecastFromUser);
     }
 
     public Forecast getByIndex(int i) {
@@ -103,5 +110,14 @@ public class ForecastService {
 
     public void getAllOnDate(LocalDate now) {
         //return forecastRepository.
+    }
+
+    public boolean deleteById(UUID id) {
+        var forecast = forecastRepository.findById(id);
+        if (!forecast.isPresent()) {
+            return false;
+        }
+        forecasts.remove(forecast);
+        return true;
     }
 }

@@ -10,8 +10,6 @@ import se.systementor.webservice_project.services.ForecastService;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.UUID;
@@ -29,6 +27,7 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		/*
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String timeStamp = "2020-01-01";
 		TemporalAccessor temporalAccessor = formatter.parse(timeStamp);
@@ -36,7 +35,6 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 		ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
 		Instant result = Instant.from(zonedDateTime);
 
-		/*
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String date = "2023-05-08";
 		// Convert string 'date' to LocalDate
@@ -50,7 +48,7 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 
 		while (true) {
 			showMenu();
-			System.out.println("Action: ");
+			System.out.println("Choose an action: ");
 			int sel = scanner.nextInt();
 			if (sel == 1) {
 				listPrediction();
@@ -60,6 +58,9 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 			}
 			else if (sel == 3) {
 				updatePrediction(scanner);
+			}
+			else if (sel == 4) {
+				deletePrediction();
 			}
 			else if (sel == 9) {
 				break;
@@ -74,9 +75,8 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 		System.out.println("*** LIST OF PREDICTIONS ***");
 
 		int num = 1;
-		/*
 		for (var forecast : forecastService.getForecasts()) {
-			System.out.printf("%t: %d, Time %d:00, Temp:%d %n",
+			System.out.printf("%d: %d, Time %d:00, Temp:%d %n",
 					num,
 					forecast.getPredictionDate(),
 					forecast.getPredictionHour(),
@@ -84,8 +84,6 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 			);
 			num++;
 		}
-
-		 */
 		//forecastService.ForecastService();
 	}
 
@@ -144,8 +142,9 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 	public void showMenu() {
 		System.out.println("--------------------");
 		System.out.println("1. List predictions");
-		System.out.println("2. Create prediction");
-		System.out.println("3. Update prediction");
+		System.out.println("2. Create new prediction");
+		System.out.println("3. Update a prediction");
+		System.out.println("4. Delete a prediction");
 		System.out.println("9. Exit");
 		System.out.println("--------------------");
 	}

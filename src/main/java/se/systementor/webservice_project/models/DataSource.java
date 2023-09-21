@@ -5,9 +5,5 @@ public enum DataSource {
     None,
     Smhi,
     Console,
-    OpenWeatherMap
-
-
-
 
 }

@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Forecast {
     // @Entity and @Id is needed to take java and use it in a DB
 
-    private String color;
+    //private String color;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -22,7 +22,7 @@ public class Forecast {
     private float longitude;
     private float latitude;
     private LocalDate predictionDate; // 20240101
-    private int predictionHour;
+    private int predictionHour;         // ex, 8 for 8:00
     private int predictionTemperature;
     private boolean rainOrSnow;
     private DataSource dataSource;
