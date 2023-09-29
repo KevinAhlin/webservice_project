@@ -42,7 +42,7 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 		Instant resultInstant = Instant.from(localDate);
 		*/
 
-		forecastService.getAllOnDate(LocalDate.now());
+		//forecastService.getAllOnDate(LocalDate.now());
 
 		var scanner = new Scanner(System.in);
 
@@ -60,7 +60,7 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 				updatePrediction(scanner);
 			}
 			else if (sel == 4) {
-				deletePrediction();
+				//deletePrediction();
 			}
 			else if (sel == 9) {
 				break;
@@ -136,6 +136,14 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 		forecast.setPredictionTemperature(temp);
 
 		forecastService.update(forecast);
+	}
+
+	private void deletePrediction(Scanner scanner, UUID id) {
+		System.out.println("Which forecast would you like to delete?");
+		int forecastId = scanner.nextInt();
+		var forecast = forecastService.get(id);
+
+		//forecastService.deleteById();
 	}
 
 

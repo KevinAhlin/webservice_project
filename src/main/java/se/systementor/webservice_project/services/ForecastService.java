@@ -21,7 +21,6 @@ public class ForecastService {
     @Autowired
     private ForecastRepository forecastRepository;
 
-    /*
     // Constructor
     public ForecastService() {
         try {
@@ -30,7 +29,6 @@ public class ForecastService {
             throw new RuntimeException(e);
         }
     }
-     */
 
 
     private List<Forecast> readFromFile() throws IOException {

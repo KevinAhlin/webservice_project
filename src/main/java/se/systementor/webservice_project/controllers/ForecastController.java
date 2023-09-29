@@ -63,6 +63,13 @@ public class ForecastController {
         return  ResponseEntity.notFound().build();
     }
 
+    // Create a new forecast
+    @PostMapping("/api/forecasts")
+    public ResponseEntity<Forecast> newForecast( @RequestBody Forecast forecast) throws IOException {   // id
+        var newCreated = forecastService.add(forecast);
+        return ResponseEntity.ok(newCreated);   // mer REST ful = created (204) samt url till forecast
+    }
+
     // Updates one forecast
     @PutMapping("/api/forecasts/{id}")
     public ResponseEntity<Forecast> updateForecast(
@@ -81,13 +88,6 @@ public class ForecastController {
         // forecast som är blankt på alla properties utom date, hour, temp
         forecastService.update(forecast);
         return ResponseEntity.ok(forecast);
-    }
-
-    // Create a new forecast
-    @PostMapping("/api/forecasts")
-    public ResponseEntity<Forecast> newForecast( @RequestBody Forecast forecast) throws IOException {   // id
-        var newCreated = forecastService.add(forecast);
-        return ResponseEntity.ok(newCreated);   // mer REST ful = created (204) samt url till forecast
     }
 
     /*
