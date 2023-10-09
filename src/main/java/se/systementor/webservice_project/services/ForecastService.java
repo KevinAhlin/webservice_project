@@ -106,10 +106,6 @@ public class ForecastService {
         //return getForecasts().stream().filter(forecast -> forecast.getId().equals(id)).findFirst();
     }
 
-    public void getAllOnDate(LocalDate now) {
-        //return forecastRepository.
-    }
-
     public boolean deleteById(UUID id) {
         var forecast = forecastRepository.findById(id);
         if (!forecast.isPresent()) {
@@ -118,4 +114,25 @@ public class ForecastService {
         forecasts.remove(forecast);
         return true;
     }
+
+    // Returns the average temperature per hour, including rainOrSnow parameter
+    public List<Map<String, Object>> getAverageTemperaturePerHour(LocalDate date) {
+        List<Object> averageTemperatureData = forecastRepository.findAverageTemperaturePerHour(date);
+        List<Map<String, Object>> transformedTempData = new ArrayList<>();
+
+        for (Object object : averageTemperatureData) {
+            Object[] objectArray = (Object[]) object;
+
+            Map<String, Object> tempDataMap = new LinkedHashMap<>();
+            tempDataMap.put("Date", objectArray[0]);
+            tempDataMap.put("Hour", objectArray[1]);
+            tempDataMap.put("rainOrSnow", objectArray[2]);
+            tempDataMap.put("Temp", objectArray[3]);
+
+            transformedTempData.add(tempDataMap);
+        }
+
+        return transformedTempData;
+    }
+
 }

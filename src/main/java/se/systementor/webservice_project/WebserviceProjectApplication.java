@@ -60,7 +60,7 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 				updatePrediction(scanner);
 			}
 			else if (sel == 4) {
-				//deletePrediction();
+				//deletePrediction(scanner);
 			}
 			else if (sel == 9) {
 				break;
@@ -143,7 +143,7 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 		int forecastId = scanner.nextInt();
 		var forecast = forecastService.get(id);
 
-		//forecastService.deleteById();
+		forecastService.deleteById(id);
 	}
 
 

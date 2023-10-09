@@ -14,6 +14,5 @@ public interface ForecastRepository extends CrudRepository<Forecast, UUID> {
     @Override
     List<Forecast> findAll();
 
-    List<Forecast> findAllByPredictionDateAndColor(LocalDate date, String color);   // autofill funkar inte, varför inte?
-
+    List<Object> findAverageTemperaturePerHour(LocalDate date);
 }

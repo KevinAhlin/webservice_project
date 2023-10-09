@@ -1,20 +1,17 @@
 package se.systementor.webservice_project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.systementor.webservice_project.dto.ForecastListDTO;
-import se.systementor.webservice_project.dto.NewForecastDTO;
 import se.systementor.webservice_project.models.Forecast;
 import se.systementor.webservice_project.services.ForecastService;
 
-import javax.swing.text.html.parser.Entity;
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 //1.  Client anropar /api/forecasts - GET
@@ -63,6 +60,17 @@ public class ForecastController {
         return  ResponseEntity.notFound().build();
     }
 
+    // Returns the average on a date you put in the URL
+    @GetMapping("/api/forecasts/averageTemperature/{date}")
+    public ResponseEntity<List<Map<String, Object>>> getAverageTemperaturePerHour(
+            @PathVariable("date") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate date) {
+
+        List<Map<String, Object>> averageTemperatureData =
+                forecastService.getAverageTemperaturePerHour(date);
+
+        return new ResponseEntity<>(averageTemperatureData, HttpStatus.OK);
+    }
+
     // Create a new forecast
     @PostMapping("/api/forecasts")
     public ResponseEntity<Forecast> newForecast( @RequestBody Forecast forecast) throws IOException {   // id
@@ -73,7 +81,7 @@ public class ForecastController {
     // Updates one forecast
     @PutMapping("/api/forecasts/{id}")
     public ResponseEntity<Forecast> updateForecast(
-            @PathVariable UUID id, @RequestBody NewForecastDTO newForecastDTO) throws IOException {
+            @PathVariable UUID id, @RequestBody ForecastListDTO forecastListDTO) throws IOException {
         // Mapping from dto -> entity
 
         // LÖSNING
