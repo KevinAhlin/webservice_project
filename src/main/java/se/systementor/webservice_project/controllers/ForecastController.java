@@ -98,17 +98,6 @@ public class ForecastController {
         return ResponseEntity.ok(forecast);
     }
 
-    /*
-    @DeleteMapping("/api/forecasts/{id}")
-    // This 'hard' delete isn't used very often
-    public ResponseEntity<Forecast> deleteForecast(@PathVariable UUID id) {
-        Optional<Forecast> forecast = forecastService.get(id);
-        if (forecast.isPresent())
-            return ResponseEntity.ok(forecast.get());
-        return  ResponseEntity.notFound().build();
-    }
-    */
-
     // Deletes a forecast
     @DeleteMapping("/api/forecasts/{id}")
     public ResponseEntity<String> deleteForecast(@PathVariable UUID id) {

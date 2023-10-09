@@ -51,49 +51,28 @@ public class ForecastService {
         StringWriter stringWriter = new StringWriter();
         objectMapper.writeValue(stringWriter, weatherPredictions);
 
-        Files.writeString(Path.of("predictions.xml"), stringWriter.toString());
+        Files.writeString(Path.of("predictions.json"), stringWriter.toString());
     }
     */
 
     private static ObjectMapper getObjectMapper() {
         ObjectMapper mapper = new ObjectMapper();     // for JSON
-        //mapper.registerModule(new JavaTimeModule());
 
         return mapper;
     }
 
-
     public List<Forecast> getForecasts() {
         return forecastRepository.findAll();
-        //return forecasts;
     }
 
     public Forecast add(Forecast forecast) throws IOException {
-
-        /*
-        // Rows below shows how to add for JSON
-        // First we add the prediction to our forecasts array
-        forecast.setId(UUID.randomUUID());
-        forecasts.add(forecast);
-        // Then we save the array in a file (JSON)
-        writeAllToFile(forecasts);
-         */
-
         forecastRepository.save(forecast);
+
         return forecast;
     }
 
     public void update(Forecast forecastFromUser) throws IOException {
         // Updates the forecasts list
-        /*
-        var forecastInList = get(forecastFromUser.getId()).get();
-        forecastInList.setDate(forecastFromUser.getDate());
-        forecastInList.setHour(forecastFromUser.getHour());
-        forecastInList.setTemperature(forecastFromUser.getTemperature());
-        forecastInList.setLastModifiedBy(forecastFromUser.getLastModifiedBy());
-
-        writeAllToFile(forecasts);
-         */
         forecastRepository.save(forecastFromUser);
     }
 

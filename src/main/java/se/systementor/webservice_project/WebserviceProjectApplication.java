@@ -26,24 +26,6 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
-		/*
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		String timeStamp = "2020-01-01";
-		TemporalAccessor temporalAccessor = formatter.parse(timeStamp);
-		LocalDateTime localDateTime = LocalDateTime.from(temporalAccessor);
-		ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
-		Instant result = Instant.from(zonedDateTime);
-
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		String date = "2023-05-08";
-		// Convert string 'date' to LocalDate
-		LocalDate localDate = LocalDate.parse(date, dateFormatter);
-		Instant resultInstant = Instant.from(localDate);
-		*/
-
-		//forecastService.getAllOnDate(LocalDate.now());
-
 		var scanner = new Scanner(System.in);
 
 		while (true) {
@@ -84,7 +66,6 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 			);
 			num++;
 		}
-		//forecastService.ForecastService();
 	}
 
 	private void addPrediction(Scanner scanner) throws IOException {
@@ -124,13 +105,13 @@ public class WebserviceProjectApplication implements CommandLineRunner {
 		int row = scanner.nextInt();
 
 		var forecast = forecastService.getByIndex(row-1);
-		/*
+
 		System.out.printf("DATE: %d, TIME: %d, CURRENT TEMP: %f %n",
 				forecast.getPredictionDate(),
 				forecast.getPredictionHour(),
 				forecast.getPredictionTemperature()
 		);
-		 */
+
 		System.out.println("Insert the new temperature");
 		int temp = scanner.nextInt();
 		forecast.setPredictionTemperature(temp);

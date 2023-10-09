@@ -13,7 +13,6 @@ import java.util.UUID;
 public class Forecast {
     // @Entity and @Id is needed to take java and use it in a DB
 
-    //private String color;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -26,8 +25,6 @@ public class Forecast {
     private int predictionTemperature;
     private boolean rainOrSnow;
     private DataSource dataSource;
-    //private float temperature;
-    //private String lastModifiedBy;
 
 
     public UUID getId() {
